@@ -4,12 +4,14 @@ delayedTasks = []
 
 #Controlling the date
 def date_controller(date):
-    dateParts = date.split(".") #Date is DD.MM.YYYY . We splitted it to 3 parts as DD MM and YYYY
+    dateParts = date.split(".") #Date is DD.MM.YYYY . We split it to 3 parts as DD MM and YYYY
     if len(dateParts) != 3: #We are checking the date if it has 3 parts or not.
         return False
-    if len(dateParts[0]) != 2 or len(dateParts[1]) != 2 or len(dateParts[2]) != 4: #We are checking the date if its parts has the true length.
+    if len(dateParts[0]) != 2 or len(dateParts[1]) != 2 or len(dateParts[2]) != 4: # We are checking the date if its
+        # parts has the true length.
         return False
-    if not dateParts[0].isdigit() or not dateParts[1].isdigit() or not dateParts[2].isdigit(): #We are checking the parts of the date if it consists of only digits.
+    if not dateParts[0].isdigit() or not dateParts[1].isdigit() or not dateParts[2].isdigit(): # We are checking the
+        # parts of the date if it consists of only digits.
         return False
 
     day=int(dateParts[0])
@@ -34,21 +36,21 @@ def date_controller(date):
     
     return True
         
-#Comparing todays date with task date.
+#Comparing today's date with task date.
 def date_comparator(todaysDate,taskDate):
         part1 = todaysDate.split(".")
         part2 = taskDate.split(".")
 
-        for i in range(3):
+        for i in (2, 1, 0):  # year first, then month, then day
             n1 = int(part1[i])
             n2 = int(part2[i])
 
-            if n1<n2: return -1
-            if n2<n1: return 1
+            if n1 < n2: return -1
+            if n1 > n2: return 1
 
         return 0
         
-#Loading informations from file.
+#Loading information from file.
 FILE_NAME = "study_organizer_data.txt"
 def load_tasks_from_file(filename=FILE_NAME):
      
@@ -63,7 +65,7 @@ def load_tasks_from_file(filename=FILE_NAME):
                         "topic": taskParts[3],
                         "lastDate": taskParts[4]
                         }
-                if taskParts[0] == "oncoming":
+                if taskStatus == "oncoming":
                     oncomingTasks.append(task)
                 elif taskStatus == "completed":
                     completedTasks.append(task)
@@ -72,7 +74,7 @@ def load_tasks_from_file(filename=FILE_NAME):
 
         
                 
-#Saving informations to file.
+#Saving information to file.
 def save_tasks_to_file(filename=FILE_NAME):
     with open(filename, "w") as file:
         for status, task_list in [
@@ -93,16 +95,29 @@ def save_tasks_to_file(filename=FILE_NAME):
 
 
 #Deletes the delayed task from oncomingTasks list, then adds it to the delayedTasks list.
+#If made a mistake, deletes the oncoming task from delayedTasks list, then adds it to the oncomingTasks list.
 def check_delayedTasks():
+
+    # oncoming -> delayed
     i = 0
     while i < len(oncomingTasks):
         task = oncomingTasks[i]
 
-        if date_comparator(task["lastDate"],todaysDate) == -1: #If todays date is later than the task date, then task is delayed.
-            task[4] = "delayed"
-
+        if date_comparator(task["lastDate"],todaysDate) == -1: # If today's date is later than the task date, then
+            # task is delayed.
             delayedTasks.append(task)
             oncomingTasks.remove(task)
+        else:
+            i += 1
+    # delayed -> oncoming
+    i = 0
+    while i < len(delayedTasks):
+        task = delayedTasks[i]
+
+        if date_comparator(task["lastDate"], todaysDate) != -1: # If the task date is today or later, the
+            # task is not delayed (for example, the date was entered wrongly before).
+            oncomingTasks.append(task)
+            delayedTasks.remove(task)
         else:
             i += 1
     save_tasks_to_file()
@@ -131,7 +146,7 @@ def add_task():
              return
             
     while True:
-        date = input("Enter the last date (DD.MM.YYYY): ")
+        date = input("Enter the last date (DD.MM.YYYY): ").strip()
 
         if date_controller(date):
             break
@@ -165,12 +180,12 @@ def add_task():
 
 
 #Printing the selected list to terminal.
-def show_selected_list(list):
-    if len(list) == 0:
+def show_selected_list(task_list):
+    if len(task_list) == 0:
         print("There are no tasks in this list.")
         return
 
-    for task in list:
+    for task in task_list:
         print("\nTask Name:", task["taskName"])
         print("Course:", task["courseName"])
         print("Topic:", task["topic"])
@@ -208,7 +223,7 @@ def complete_task():
 
 #Initialization of the script.
 while True:
-    todaysDate = input("Enter today's date (DD.MM.YYYY): ")
+    todaysDate = input("Enter today's date (DD.MM.YYYY): ").strip()
 
     if date_controller(todaysDate):
         break
@@ -230,7 +245,7 @@ while True:
     print("5. Complete a Task")
     print("0. Finish")
 
-    selection = input("What would you like to do? (0-5) ")
+    selection = input("What would you like to do? (0-5) ").strip()
 
     if selection == "1":
         add_task()
@@ -248,7 +263,3 @@ while True:
         break
     else:
         print("Invalid Selection.")
-
-    
-
-    
