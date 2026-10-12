@@ -214,7 +214,45 @@ def complete_task():
 
     print("Task not found in upcoming or delayed tasks.")
  
+#Sorting key: turns DD.MM.YYYY into (year, month, day) so dates are compared in the right order.
+def date_key(task):
+    dateParts = task["lastDate"].split(".")
+    return (int(dateParts[2]), int(dateParts[1]), int(dateParts[0]))
 
+
+
+#Sorting all lists by last date (nearest date first).
+def sort_tasks_by_date():
+    oncomingTasks.sort(key=date_key)
+    completedTasks.sort(key=date_key)
+    delayedTasks.sort(key=date_key)
+    save_tasks_to_file()
+    print("Tasks sorted by date.")
+
+
+
+#Deleting a task.
+def delete_task():
+    if not oncomingTasks and not delayedTasks and not completedTasks:
+        print("There are no tasks to delete.")
+        return
+
+    task_name = input("Enter the task name to delete: ").strip()
+
+    for task_list in (oncomingTasks, delayedTasks, completedTasks):
+        for task in task_list:
+            if task["taskName"].lower() == task_name.lower():
+                answer = input("Are you sure you want to delete '" + task["taskName"] + "'? (y/n) ").strip().lower()
+
+                if answer == "y":
+                    task_list.remove(task)
+                    save_tasks_to_file()
+                    print("Task deleted.")
+                else:
+                    print("Deletion cancelled.")
+                return
+
+    print("Task not found.")
 
 
 
@@ -243,9 +281,11 @@ while True:
     print("3. Show Oncoming Tasks")
     print("4. Show Delayed Tasks")
     print("5. Complete a Task")
+    print("6. Delete a Task")
+    print("7. Sort Tasks by Date")
     print("0. Finish")
 
-    selection = input("What would you like to do? (0-5) ").strip()
+    selection = input("What would you like to do? (0-7) ").strip()
 
     if selection == "1":
         add_task()
@@ -257,6 +297,10 @@ while True:
         show_selected_list(delayedTasks)
     elif selection == "5":
         complete_task()
+    elif selection == "6":
+        delete_task()
+    elif selection == "7":
+        sort_tasks_by_date()
     elif selection == "0":
         save_tasks_to_file()
         
