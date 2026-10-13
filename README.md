@@ -1,6 +1,6 @@
 About the Project
 
-Pythonic Study Organizer is a command-line application developed in Python to help students organize their study tasks. Users can add tasks, view tasks according to their status, complete or delete tasks, and sort tasks by their deadlines.
+Pythonic Task Tracker is a command-line application developed in Python to help people organize their daily, weekly or for long term tasks. Users can add tasks, view tasks according to their status, complete or delete tasks, and sort tasks by their deadlines.
 The program stores task information in a text file, allowing tasks to be saved and loaded between program runs.
 
 Features

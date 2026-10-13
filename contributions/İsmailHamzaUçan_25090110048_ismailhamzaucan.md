@@ -6,7 +6,7 @@ Student Id: 25090110048
 
 Github Username: ismailhamzaucan
 
-Project: Pythonic Study Organizer
+Project: Pythonic Task Tracker
 
 Contributions:
 

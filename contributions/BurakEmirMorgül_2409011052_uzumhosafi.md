@@ -6,7 +6,7 @@ Student Id: 240911052
 
 Github Username: uzumhosafi
 
-Project: Pythonic Study Organizer
+Project: Pythonic Task Tracker
 
 
 Contributions:

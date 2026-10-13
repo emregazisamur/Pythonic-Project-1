@@ -8,7 +8,7 @@ Github Username: emregazisamur
 
 Used a second github account for commits: uykusuz1
 
-Project: Pythonic Study Organizer
+Project: Pythonic Task Tracker
 
 Contributions:
 

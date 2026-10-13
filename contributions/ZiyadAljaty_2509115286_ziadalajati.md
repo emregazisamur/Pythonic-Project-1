@@ -6,7 +6,7 @@ Student Id: 2509115286
 
 Github Username: ziadalajati
 
-Project: Pythonic Study Organizer
+Project: Pythonic Task Tracker
 
 Contributions:
 

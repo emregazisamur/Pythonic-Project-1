@@ -6,7 +6,7 @@ Student Id: 2509115298
 
 Github Username: modyajam17-sudo
 
-Project: Pythonic Study Organizer
+Project: Pythonic Task Tracker
 
 Contributions:
 
