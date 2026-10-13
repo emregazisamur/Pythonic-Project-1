@@ -6,12 +6,19 @@ The program stores task information in a text file, allowing tasks to be saved a
 Features
 
 Add New Tasks: Create tasks by entering a task name, course name, topic, and deadline.
+
 View Tasks: Display completed, oncoming, and delayed tasks separately.
+
 Complete Tasks: Move tasks from the oncoming or delayed list to the completed list.
+
 Delete Tasks: Remove tasks after confirming the deletion.
+
 Deadline Management: Automatically classify tasks as oncoming or delayed according to their deadlines.
+
 Sort Tasks: Sort all task lists by deadline, starting with the nearest date.
+
 Data Persistence: Save tasks to a text file and load them when the program starts.
+
 Input Validation: Check date validity, prevent empty fields, and avoid duplicate task names.
 
 How the Program Works
@@ -20,14 +27,19 @@ How the Program Works
 The program uses three lists to organize tasks according to their status:
 
 oncomingTasks: Stores tasks that have not passed their deadlines.
+
 completedTasks: Stores tasks that have been completed.
+
 delayedTasks: Stores tasks whose deadlines have passed and that have not been completed.
 
 Each task is represented by a Python dictionary containing four fields:
 
 taskName: The name of the task.
+
 courseName: The course associated with the task.
+
 topic: The topic to study.
+
 lastDate: The task's deadline in DD.MM.YYYY format.
 
 2. Date Validation — date_controller()
@@ -62,8 +74,13 @@ The sort_tasks_by_date() function uses this key to sort all three task lists fro
 This function searches for a task by name across all three lists. Before deleting a matching task, it asks the user for confirmation. If the user confirms, the task is removed and the changes are saved.
 
 How to Run
+
 Run the program using a terminal:
+
 python study_organizer.py
+
 Enter today's date in DD.MM.YYYY format when prompted.
+
 Use the numbered menu to manage your study tasks.
+
 The program creates or updates study_organizer_data.txt to store task information.
